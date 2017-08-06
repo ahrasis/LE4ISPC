@@ -44,14 +44,14 @@ chmod 600 pure-ftpd.pem
 service pure-ftpd-mysql restart
 # Create auto updater script for LE ispserver.pem
 cd /etc/init.d/
-wget 
+wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le_ispc_pem.sh
 chmod +x le_ispc_pem.sh
 # Install incron, allow root user
 apt-get install -yqq incron
 cat "root" > /etc/incron.allow
 # Create icrontab table for root
 cd /var/spool/incron/
-wget 
+wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/root
 chmod 600 root
 # Restart your webserver again
 service nginx restart
