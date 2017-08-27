@@ -14,7 +14,9 @@ cat ispserver.{key,crt} > ispserver.pem
 chmod 600 ispserver.pem
 chmod 600 /etc/ssl/private/pure-ftpd.pem
 service pure-ftpd-mysql restart
-service monit restart
+if [ -d "/etc/monit" ]; then
+  service monit restart
+fi
 service postfix restart
 service dovecot restart
 service apache2 restart
