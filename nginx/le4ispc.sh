@@ -37,7 +37,10 @@ service postfix restart
 service dovecot restart
 # Backup existing pure-ftpd ssl file(s)
 cd /etc/ssl/private/
-mv pure-ftpd.pem pure-ftpd.pem-$(date +"%y%m%d%H%M%S").bak
+if [ -f "pure-ftpd.pem" ]
+then
+	mv pure-ftpd.pem pure-ftpd.pem-$(date +"%y%m%d%H%M%S").bak
+fi
 # Create symlink from ISPConfig, chmod it, then restart it
 ln -s /usr/local/ispconfig/interface/ssl/ispserver.pem pure-ftpd.pem
 chmod 600 pure-ftpd.pem
