@@ -7,7 +7,8 @@ Before proceeding, you should already have:
 2. Created the website for your server via ISPConfig;
 3. The said website properly accessible from the internet. 
 
-# HOW-TO FOR NGINXIn your terminal, in root mode, run:
+# HOW-TO FOR NGINX
+In your terminal, in root mode, run:
 ```
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh
 chmod +x le4ispc.sh
