@@ -2,7 +2,7 @@
 Let's Encrypt for ISPConfig 3, Postfix+Dovecot, Pure-ftpd With Auto Updater for ispserver.pem.
 
 # IMPORTANT! 
-Before proceeding, you should already have:
+Before proceeding, you should have followed step 1-5 in (here)[https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/] already have:
 ```
 1. ISPConfig SSL enabled via its installation or update; 
 2. Created the website for your server via ISPConfig;
