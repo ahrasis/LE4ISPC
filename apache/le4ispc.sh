@@ -51,7 +51,7 @@ wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/apache/le_ispc_pem
 chmod +x le_ispc_pem.sh
 # Install incron, allow root user
 apt-get install -yqq incron
-cat "root" > /etc/incron.allow
+echo "root" > /etc/incron.allow
 # Create icrontab table for root
 cd /var/spool/incron/
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/root
