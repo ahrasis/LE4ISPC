@@ -1,5 +1,5 @@
 # LE4ISPC (For Single or Multi Server Setup)
-Let's Encrypt for ISPConfig 3, Postfix+Dovecot, Pure-ftpd With Auto Updater for ispserver.pem. This can also be used in multi server setup [as described in post #203 of the related forum](https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/page-11#post-368888) by modifying le_ispc_pem.sh in the main server and le4ispc.sh on other servers.
+Let's Encrypt With Auto Updater is for ISPConfig 3 Single or Multi Server Setup and other services like Postfix+Dovecot, Pure-ftpd, Monit etc.
 
 # IMPORTANT! 
 Before proceeding, you should have followed step 1-5 [at HowToForge](https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/) and should already have:
@@ -19,8 +19,7 @@ In your terminal, in root mode, run:
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh
 chmod +x le4ispc.sh
 ```
-
-Execute as follows only after you have made necessary changes especially for ISPConfig multi server setup. 
+If you do not have run ISPConfig multi server setup, you may continue to run this in your terminal without making any changes.
 ```
 ./le4ispc.sh
 ```
@@ -30,13 +29,15 @@ In your terminal, in root mode, run:
 ```
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/apache/le4ispc.sh
 chmod +x le4ispc.sh
+```
+If you do not have run ISPConfig multi server setup, you may continue to run this in your terminal without making any changes.
+```
 ./le4ispc.sh
 ```
 
-Execute as follows only after you have made necessary changes especially for ISPConfig multi server setup.
-```
-./le4ispc.sh
-```
+# EXAMPLE OF CHANGES
+1. In the main server, add scp -r /etc/letsencrypt/$(hostname -f)/ username@otherserver:~/etc/ at the end of le_ispc_pem.sh. This is to automate future scp of updated LE SSL certs to the other server as specied. Copy, modify and add more line, if you need to scp to more than one other server.
+2. In the other server(s), do change $(hostname -f) to the main server hostname / domain in "root" and "le4ispc.sh" file. You may also remove for other services that you may not need.
 
 # LICENSE
 BSD3
