@@ -1,5 +1,5 @@
-# LE4ISPC (For Single or Multi Server Setup)
-Let's Encrypt With Auto Updater is for ISPConfig 3 Single or Multi Server Setup and other services like Postfix+Dovecot, Pure-ftpd, Monit etc.
+# LE4ISPC (Single or Multi Server Setup)
+Let's Encrypt With Auto Updater is for ISPConfig 3 (Single or Multi Server Setup) and other services like Postfix+Dovecot, Pure-ftpd, Monit etc.
 
 # IMPORTANT! 
 Before proceeding, you should have followed step 1-5 [at HowToForge](https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/) and should already have:
