@@ -19,10 +19,6 @@ In your terminal, in root mode, run:
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh
 chmod +x le4ispc.sh
 ```
-If you do not have run ISPConfig multi server setup, you may continue to run this in your terminal without making any changes.
-```
-./le4ispc.sh
-```
 
 # HOW-TO FOR APACHE2
 In your terminal, in root mode, run:
@@ -30,6 +26,8 @@ In your terminal, in root mode, run:
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/apache/le4ispc.sh
 chmod +x le4ispc.sh
 ```
+
+# RUNNING THE SCRIPT
 If you do not have run ISPConfig multi server setup, you may continue to run this in your terminal without making any changes.
 ```
 ./le4ispc.sh
