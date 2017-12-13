@@ -20,3 +20,7 @@ fi
 service postfix restart
 service dovecot restart
 service nginx restart
+
+# Please modify accordingly to automate to transfer LE SSL certs to other servers 
+# scp -r /etc/letsencrypt/$(hostname -f)/ username@server2.domain.tld:~/etc/letsencrypt/
+# scp -r /etc/letsencrypt/$(hostname -f)/ username@server3.domain.tld:~/etc/letsencrypt/
