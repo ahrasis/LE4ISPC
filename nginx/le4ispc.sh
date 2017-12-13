@@ -10,6 +10,7 @@
 ### END INIT INFO
 # Enable set -e to cause script to exit on error
 # set -e
+# Please modify accordingly for multi server setup
 # Backup exisiting ISPConfig ssl file(s)
 cd /usr/local/ispconfig/interface/ssl/
 mv ispserver.crt ispserver.crt-$(date +"%y%m%d%H%M%S").bak
