@@ -33,7 +33,7 @@ If you do not have run ISPConfig multi server setup, you may continue to run thi
 ./le4ispc.sh
 ```
 
-# EXAMPLE OF CHANGES
+# CHANGES EXAMPLES
 1. In the main server, add scp -r /etc/letsencrypt/$(hostname -f)/ username@otherserver:~/etc/ at the end of le_ispc_pem.sh. This is to automate future scp of updated LE SSL certs to the other server as specied. Copy, modify and add more line, if you need to scp to more than one server.
 2. In the other server(s), do change $(hostname -f) to the main server hostname / domain in "root" and "le4ispc.sh" file. You may also remove other services that you may not need for specific server.
 
