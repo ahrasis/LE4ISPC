@@ -16,7 +16,7 @@ cd /usr/local/ispconfig/interface/ssl/
 mv ispserver.crt ispserver.crt-$(date +"%y%m%d%H%M%S").bak
 mv ispserver.key ispserver.key-$(date +"%y%m%d%H%M%S").bak
 # If ispserver.pem exists then back it up too
-if [ -f ispserver.pem ]; then
+if [ -f "ispserver.pem" ]; then
 	mv ispserver.pem ispserver.pem-$(date +"%y%m%d%H%M%S").bak
 fi
 # Create symlink to LE fullchain and key for ISPConfig
@@ -37,7 +37,7 @@ service postfix restart
 service dovecot restart
 # Backup existing pure-ftpd ssl file(s)
 cd /etc/ssl/private/
-if [ -f pure-ftpd.pem ]; then
+if [ -f "pure-ftpd.pem" ]; then
 	mv pure-ftpd.pem pure-ftpd.pem-$(date +"%y%m%d%H%M%S").bak
 fi
 # Create symlink from ISPConfig, chmod it, then restart it
