@@ -34,8 +34,9 @@ If you do not have run ISPConfig multi server setup, you may continue to run thi
 ```
 
 # CHANGES EXAMPLES
-1. In the main server, add scp -r /etc/letsencrypt/$(hostname -f)/ username@otherserver:~/etc/letsencrypt/ at the end of le_ispc_pem.sh. This is to automate future scp of updated LE SSL certs to the other server as specied. Copy, modify and add more line, if you need to scp to more than one server.
-2. In the other server(s), do change $(hostname -f) to the main server hostname / domain in "root" and "le4ispc.sh" file. You may also remove other services that you may not need for specific server.
+1. For multi server setup, do read [post (#203)](https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/page-11#post-368888).
+2. Basically, in the main server, add scp -r /etc/letsencrypt/live/$(hostname -f)/ root@otherserverip:/etc/letsencrypt/live/ at the end of le_ispc_pem.sh. This is to automate future scp of updated LE SSL certs to the other server as specied. Copy, modify and add more line, if you need to scp to more than one server.
+3. In the other server(s), do change $(hostname -f) to the main server hostname / domain in "root" and "le4ispc.sh" file. You may also remove other services that you may not need for specific server.
 
 # LICENSE
 BSD3
