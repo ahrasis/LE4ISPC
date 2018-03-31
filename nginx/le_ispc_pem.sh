@@ -21,6 +21,7 @@ service postfix restart
 service dovecot restart
 service nginx restart
 
-# Please modify accordingly to automate to transfer LE SSL certs to other servers 
-# scp -r /etc/letsencrypt/$(hostname -f)/ username@server2.domain.tld:~/etc/letsencrypt/
-# scp -r /etc/letsencrypt/$(hostname -f)/ username@server3.domain.tld:~/etc/letsencrypt/
+# Enable and modify accordingly to automate to transfer LE SSL certs to other servers 
+# scp -P XX -r /etc/letsencrypt/ username@server2.domain.tld:~/etc/
+# Use -P XX if your ssh use different port then default 22, where XX is assigned ssh port number.
+# Copy and add similar line if you have more server(s).
