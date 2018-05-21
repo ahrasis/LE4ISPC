@@ -59,7 +59,7 @@ cd /var/spool/incron/
 if [ -f "root" ]; then
 	mv root root-$(date +"%y%m%d%H%M%S").bak
 fi
-wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/root
+echo "/etc/letsencrypt/archive/$(hostname -f)/ IN_MODIFY /bin/bash /etc/init.d/le_ispc_pem.sh" > /var/spool/incron/root
 chmod 600 root
 # Restart your webserver again
 service nginx restart
