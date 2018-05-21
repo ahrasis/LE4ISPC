@@ -22,6 +22,9 @@ service dovecot restart
 service nginx restart
 
 # Enable and modify accordingly to automate to transfer LE SSL certs to other servers 
-# scp -P XX -r /etc/letsencrypt/ username@server2.domain.tld:~/etc/
+# scp -P XX -r /etc/letsencrypt/ root@server2.domain.tld:~/etc/
 # Use -P XX if your ssh use different port then default 22, where XX is assigned ssh port number.
+# You can also use rsync if you have it installed in your system
+# rsync -a -e "ssh -p XX" /etc/letsencrypt/ root@server2.domain.tld:~/etc/letsencrypt/
+# Use "ssh -p XX" if your ssh use different port then default 22, where XX is assigned ssh port number.
 # Copy and add similar line if you have more server(s).
