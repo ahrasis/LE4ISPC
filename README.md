@@ -46,19 +46,12 @@ If you have ISPConfig SSL enabled via its installation or update, you may try an
 
 Firstly, when you already have your ISPConfig installed and running, simply check and run these commands in its terminal:
 ```
-# Basically you need incron or something similar
 apt install -y incron
-# Then allow root user to run it
 echo "root" >> /etc/incron.allow
-# We need to keep the LE4ISPC script somewhere so...
 cd /usr/local/ispconfig/server/scripts
-# Change nginx to apache if you use the later
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh
-# Make it executable
 chmod +x le4ispc.sh
-# Make the LE4ISPC script run if your server LE folder is created
 echo "/etc/letsencrypt/archive/$(hostname -f)/ IN_CREATE /bin/bash /usr/local/ispconfig/server/scripts/le4ispc.sh" >> /var/spool/incron/root
-#That is from the command line
 ```
 Secondly, once you have finished running the above, in ISPConfig control panel (8080), simply create a website under your server FQDN name like server1.domain.tld (this value must be the same as $(hostname -f) output in its terminal).
 
