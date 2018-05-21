@@ -42,7 +42,7 @@ If you do not have run ISPConfig multi server setup, you may continue to run thi
 
 
 # OTHER METHOD
-If you have ISPConfig SSL enabled via its installation or update, you may try another way to achieve the same result.
+If you already have ISPConfig SSL enabled via its installation or update, you may try another way to achieve the same result.
 
 Firstly, when you already have your ISPConfig installed and running, simply check and run these commands in its terminal:
 ```
