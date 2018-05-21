@@ -28,8 +28,12 @@ chmod 600 ispserver.pem
 service apache2 restart
 # Backup existing postfic ssl file(s)
 cd /etc/postfix/
-mv smtpd.cert smtpd.cert-$(date +"%y%m%d%H%M%S").bak
-mv smtpd.key smtpd.key-$(date +"%y%m%d%H%M%S").bak
+if [ -f "smtpd.cert" ]; then
+	mv smtpd.cert smtpd.cert-$(date +"%y%m%d%H%M%S").bak
+fi
+if [ -f "smtpd.key" ]; then
+	mv smtpd.key smtpd.key-$(date +"%y%m%d%H%M%S").bak
+fi
 # Create symlink from ISPConfig then restart postfix and dovecot
 ln -s /usr/local/ispconfig/interface/ssl/ispserver.crt smtpd.cert
 ln -s /usr/local/ispconfig/interface/ssl/ispserver.key smtpd.key
