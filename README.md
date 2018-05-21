@@ -59,7 +59,7 @@ Thirdly, when it is successfully created, request Let's Encrypt SSL certs by tic
 
 Once LE SSL certs are issued by Let's Encrypt authority, your ISPConfig control panel (8080) should then have proper certs automatically. However, if they are not not issued by LE Authority, you should then check your LE logs and fix whatever errors that were reported.
 
-So long it is not removed, the LE4ISPC script will be waiting and will do its job after you have fixed the errors. :D
+So long it is not removed, the LE4ISPC script will be waiting and will do its job after you have fixed the errors. ;D
 
 
 # LICENSE
