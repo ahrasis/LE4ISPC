@@ -40,11 +40,16 @@ If you do not have run ISPConfig multi server setup, you may continue to run thi
 4. Add -P XX (where xx is port number) after scp if you change your default ssh port from 22 to other number.
 5. In the other server(s), do change $(hostname -f) to the main server hostname / domain in "root" and "le4ispc.sh" file. You may also remove other services that you may not need for specific server.
 
+# DO AND DO NOT
+Please DO modify le_ispc_pem.sh in /etc/init.d/ folder to enable support for multi server setup but DO NOT delete it or your ispconfig.pem (which is required / needed by some other services via symlinks) will fail.
+
 
 # OTHER METHOD
-If you already have ISPConfig SSL enabled via its installation or update, you may try another way to achieve the same result.
+Step 1
+Ensure your ISPConfig server is SSL enabled by viewing it in a web browser e.g. https://yourserver1.domain.tld. Normally the browser will show a warning for using self-signed SSL certs created while installing your server.
 
-Firstly, when you already have your ISPConfig installed and running, simply check and run these commands in its terminal:
+Step 2
+Run the commands below (to install incron, allow root to run incron, download the le4ispc.sh script from this github, make the script executable and create an incron job to run the script upon your server Let's Encrypt archive folder is created):
 ```
 apt install -y incron
 echo "root" >> /etc/incron.allow
@@ -53,11 +58,13 @@ wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh
 chmod +x le4ispc.sh
 echo "/etc/letsencrypt/archive/$(hostname -f)/ IN_CREATE /bin/bash /usr/local/ispconfig/server/scripts/le4ispc.sh" >> /var/spool/incron/root
 ```
-Secondly, once you have finished running the above, in ISPConfig control panel (8080), simply create a website under your server FQDN name like server1.domain.tld (this value must be the same as $(hostname -f) output in its terminal).
+Step 3
+When you finished with the above, access your ISPConfig control panel and create a website under your server FQDN name e.g. server1.domain.tld. It is important to note that this value must be the same as $(hostname -f) output.
 
-Thirdly, when it is successfully created, request Let's Encrypt SSL certs by ticking its box.
+Step 4
+When the website has been created, request Let's Encrypt SSL certs by ticking its box and wait for it to be successfully issued (as once LE SSL certs are issued by Let's Encrypt authority, your ISPConfig control panel (8080) should have the proper LE SSL certs automatically applied to it).
 
-Once LE SSL certs are issued by Let's Encrypt authority, your ISPConfig control panel (8080) should then have proper certs automatically. However, if they are not not issued by LE Authority, you should then check your LE logs and fix whatever errors that were reported.
+However, if they are not not issued by LE Authority, you should then check your LE logs and fix whatever errors that were reported.
 
 So long it is not removed, the LE4ISPC script will be waiting and will do its job after you have fixed the errors. ;D
 
