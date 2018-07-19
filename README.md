@@ -40,7 +40,7 @@ If you do not have run ISPConfig multi server setup, you may continue to run thi
 4. Add -P XX (where xx is port number) after scp if you change your default ssh port from 22 to other number.
 5. In the other server(s), do change $(hostname -f) to the main server hostname / domain in "root" and "le4ispc.sh" file. You may also remove other services that you may not need for specific server.
 6. In case you need to secure your mysql server do read [post #247](https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/page-13#post-376720)
-7. Simply scp ispconfig ssl files (crt and key) to your /etc/mysql folder and then enable ssl for mysql by adding their link in /etc/mysql/mariadb.conf.d/50-server.cnf file.
+7. Simply scp ispconfig ssl files (crt and key) to your /etc/mysql folder and then enable ssl for mysql by modifying / adding their settings in /etc/mysql/my.cnf file.
 
 # DO AND DO NOT
 Please DO modify le_ispc_pem.sh in /etc/init.d/ folder to enable support for multi server setup but DO NOT delete it or your ispconfig.pem (which is required / needed by some other services via symlinks) will fail.
