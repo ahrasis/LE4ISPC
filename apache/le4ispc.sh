@@ -48,6 +48,19 @@ fi
 ln -s /usr/local/ispconfig/interface/ssl/ispserver.pem pure-ftpd.pem
 chmod 600 pure-ftpd.pem
 service pure-ftpd-mysql restart
+# Backup existing mysql ssl file(s)
+cd /etc/mysql
+if [ -f "server-cert.pem" ]; then
+	mv server-cert.pem server-cert.pem-$(date +"%y%m%d%H%M%S").bak
+fi
+if [ -f "server-key.pem" ]; then
+	mv server-key.pem server-key.pem-$(date +"%y%m%d%H%M%S").bak
+fi
+# Copy from ISPConfig, add settings in /etc/mysql/my.cnf and restart mysql
+scp /usr/local/ispconfig/interface/ssl/ispserver.crt /etc/mysql/server-cert.pem
+scp /usr/local/ispconfig/interface/ssl/ispserver.key /etc/mysql/server-key.pem
+sed -i '/\[mysqld\]/a ssl-cipher=TLSv1.2\nssl-cert=/etc/mysql/server-cert.pem\nssl-key=/etc/mysql/server-key.pem' /etc/mysql/my.cnf
+service mysql restart
 # Create auto updater script for LE ispserver.pem
 cd /etc/init.d/
 if [ -f "le_ispc_pem.sh" ]; then
