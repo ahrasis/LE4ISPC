@@ -16,14 +16,14 @@ For multi server setup, you also should have read [the said post #203](https://w
 # HOW-TO FOR NGINX
 In your terminal, in root mode, run:
 ```
-wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh
+wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh --no-check-certificate
 chmod +x le4ispc.sh
 ```
 
 # HOW-TO FOR APACHE2
 In your terminal, in root mode, run:
 ```
-wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/apache/le4ispc.sh
+wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/apache/le4ispc.sh --no-check-certificate
 chmod +x le4ispc.sh
 ```
 
@@ -56,7 +56,7 @@ Run the commands below (to install incron, allow root to run incron, download th
 apt install -y incron
 echo "root" >> /etc/incron.allow
 cd /usr/local/ispconfig/server/scripts
-wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh
+wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh --no-check-certificate
 chmod +x le4ispc.sh
 echo "/etc/letsencrypt/archive/$(hostname -f)/ IN_CREATE /bin/bash /usr/local/ispconfig/server/scripts/le4ispc.sh" >> /var/spool/incron/root
 ```
