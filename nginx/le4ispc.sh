@@ -66,7 +66,7 @@ cd /etc/init.d/
 if [ -f "le_ispc_pem.sh" ]; then
 	mv le_ispc_pem.sh le_ispc_pem.sh-$(date +"%y%m%d%H%M%S").bak
 fi
-wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le_ispc_pem.sh
+wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le_ispc_pem.sh --no-check-certificate
 chmod +x le_ispc_pem.sh
 # Install incron, allow root user
 apt-get install -yqq incron
