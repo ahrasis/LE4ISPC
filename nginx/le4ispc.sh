@@ -75,9 +75,19 @@ else
 	sed -i '/\[mysqld\]/a ssl-cipher=TLSv1.2\nssl-cert=/etc/mysql/server-cert.pem\nssl-key=/etc/mysql/server-key.pem' /etc/mysql/my.cnf
 	service mysql restart
 	
+	# Securing monit
+	monit=/etc/monit
+	monitrc=$monit/monitrc
+	cat $monitrc
+	if [ -d "$monit" ] && [ -f "$monitrc" ] ; then
+		sed -i '/PEMFILE/d' $monitrc
+		sed -i 's/SSL ENABLE/SSL ENABLE\n    PEMFILE \/etc\/ssl\/private\/pure-ftpd.pem/g' $monitrc
+	fi
+	service monit restart
+	
 	# Download auto updater script for LE ispserver.pem & others
 	cd /etc/init.d/
-	if ls le_ispc_pem.sh-*.bak 1> /dev/null 2>&1; then rm le_ispc_pem.sh--*.bak; fi
+	if ls le_ispc_pem.sh-*.bak 1> /dev/null 2>&1; then rm le_ispc_pem.sh-*.bak; fi
 	if [ -f "le_ispc_pem.sh" ]; then mv le_ispc_pem.sh le_ispc_pem.sh-$(date +"%y%m%d%H%M%S").bak; fi
 	wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le_ispc_pem.sh --no-check-certificate
 	chmod +x le_ispc_pem.sh
