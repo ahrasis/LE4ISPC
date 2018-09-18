@@ -82,6 +82,7 @@ else
 	apt-get install -yqq incron
 	iallow=/etc/incron.allow
 	if grep -q root "$iallow"; then
+	
 	else
 		echo "root" >> $iallow
 	fi
