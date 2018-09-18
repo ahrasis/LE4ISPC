@@ -41,7 +41,7 @@ If you do not have run ISPConfig multi server setup, you may continue to run thi
 3. Copy, modify and add more line, if you need to scp to more than one server.
 4. Add -P XX (where xx is port number) after scp if you change your default ssh port from 22 to other number.
 5. In the other server(s), do change $(hostname -f) to the main server hostname / domain in "root" and "le4ispc.sh" file. You may also remove other services that you may not need for specific server.
-6. In case you need to secure your mysql server do read [post #247](https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/page-13#post-376720)
+6. Securing mysql server is now covered by the script. In case you need explanation or to secure your mysql server manually do read [post #247](https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/page-13#post-376720)
 7. Simply scp ispconfig ssl files (crt and key) to your /etc/mysql folder and then enable ssl for mysql by modifying / adding their settings in /etc/mysql/my.cnf file.
 
 # DO AND DO NOT
