@@ -17,11 +17,8 @@ scp ispserver.crt /etc/mysql/server-cert.pem
 scp ispserver.key /etc/mysql/server-key.pem
 service mysql restart
 service pure-ftpd-mysql restart
-if [ -d "/etc/monit" ]; then
-  service monit restart
-fi
-service postfix restart
-service dovecot restart
+if [ -d "/etc/monit" ]; then service monit restart; fi
+if [ -d "/etc/postfix" ]; then service postfix restart; service dovecot restart; fi
 service apache2 restart
 
 # IMPORTANT NOTES 
