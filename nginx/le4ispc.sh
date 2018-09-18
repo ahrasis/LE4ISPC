@@ -77,6 +77,7 @@ else
 	
 	# Download auto updater script for LE ispserver.pem & others
 	cd /etc/init.d/
+	if ls le_ispc_pem.sh-*.bak 1> /dev/null 2>&1; then rm le_ispc_pem.sh--*.bak; fi
 	if [ -f "le_ispc_pem.sh" ]; then mv le_ispc_pem.sh le_ispc_pem.sh-$(date +"%y%m%d%H%M%S").bak; fi
 	wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le_ispc_pem.sh --no-check-certificate
 	chmod +x le_ispc_pem.sh
