@@ -23,7 +23,7 @@ chmod +x le4ispc.sh
 
 # HOW-TO FOR APACHE2
 In your terminal, in root mode, run:
-``
+```
 cd /tmp
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/apache/le4ispc.sh --no-check-certificate
 chmod +x le4ispc.sh
