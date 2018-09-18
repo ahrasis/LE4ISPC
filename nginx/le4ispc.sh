@@ -9,17 +9,14 @@
 # Description:  Create LE SSL for ISPC and other main services.
 ### END INIT INFO
 # Enable set -e to cause script to exit on error
-# set -e
+set -e
 # Please modify accordingly for multi server setup
 
 # Backup exisiting ISPConfig ssl file(s)
 ispcssl=/usr/local/ispconfig/interface/ssl
-cd $ispcssl
-if [ ! -e "ispserver.crt" ] && [ ! -e "ispserver.key" ]; then
-	echo "Could not find ispserver cert and key files."
-	echo "You may have missed to enable ISPConfig SSL."
-	echo "Do enable ISPConfig SSL before trying again."
-else
+lelive=/etc/letsencrypt/live/$(hostname -f)
+if [ -f "$ispcssl/ispserver.crt" ] && [ -f "$ispcssl/ispserver.key" ] && [ -d "$lelive" ]; then
+	cd $ispcssl
 	# Backup ISPConfig SSL files
 	if ls ispserver.*.bak 1> /dev/null 2>&1; then rm ispserver.*.bak; fi
 	mv ispserver.crt ispserver.crt-$(date +"%y%m%d%H%M%S").bak
@@ -27,7 +24,6 @@ else
 	if [ -e "ispserver.pem" ]; then mv ispserver.pem ispserver.pem-$(date +"%y%m%d%H%M%S").bak; fi
 
 	# Create symlink to LE fullchain and key for ISPConfig
-	lelive=/etc/letsencrypt/live/$(hostname -f)
 	ln -s $lelive/fullchain.pem ispserver.crt
 	ln -s $lelive/privkey.pem ispserver.key
 
@@ -117,5 +113,13 @@ else
 	chmod 600 root
 	# Restart your webserver again
 	service nginx restart
+
+else
+	if [ ! -f "$ispcssl/ispserver.crt" ] || [ ! -f "$ispcssl/ispserver.key" ] then
+		echo "You did not enable SSL for ISPConfig server control panel. Please enable it before trying."
+	fi
+	if [ ! -d "$lelive" ]; then
+		echo "You did not have Lets Encrypt SSL certs for your server FQDN. Try again when you have them."
+	fi
 fi
 # End of script
