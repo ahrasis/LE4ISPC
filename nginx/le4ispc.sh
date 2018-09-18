@@ -84,7 +84,7 @@ else
 	# Install incron, allow root user
 	apt-get install -yqq incron
 	iallow=/etc/incron.allow
-	if grep -q root "$iallow"; then;
+	if grep -q root "$iallow"; then echo;
 	else
 		echo "root" >> $iallow
 	fi
