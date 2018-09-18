@@ -21,6 +21,7 @@ if [ ! -e "ispserver.crt" ] && [ ! -e "ispserver.key" ]; then
 	echo "Do enable ISPConfig SSL before trying again."
 else
 	# Backup ISPConfig SSL files
+	if ls ispserver.*.bak 1> /dev/null 2>&1; then rm ispserver.*.bak; fi
 	mv ispserver.crt ispserver.crt-$(date +"%y%m%d%H%M%S").bak
 	mv ispserver.key ispserver.key-$(date +"%y%m%d%H%M%S").bak
 	if [ -e "ispserver.pem" ]; then mv ispserver.pem ispserver.pem-$(date +"%y%m%d%H%M%S").bak; fi
@@ -37,7 +38,9 @@ else
 
 	# Backup existing postfix ssl file(s)
 	postfix=/etc/postfix
-	if [ -d "/etc/postfix" ]; then
+	if [ -d "$postfix" ]; then
+		cd $postfix
+		if ls smtpd.*.bak 1> /dev/null 2>&1; then rm smtpd.*.bak; fi
 		if [ -f "smtpd.cert" ]; then mv smtpd.cert smtpd.cert-$(date +"%y%m%d%H%M%S").bak; fi
 		if [ -f "smtpd.key" ]; then mv smtpd.key smtpd.key-$(date +"%y%m%d%H%M%S").bak; fi
 
@@ -52,17 +55,17 @@ else
 	
 	# Backup existing pure-ftpd ssl file(s), if any
 	cd /etc/ssl/private/
-	if [ -f "pure-ftpd.pem" ]; then
-		mv pure-ftpd.pem pure-ftpd.pem-$(date +"%y%m%d%H%M%S").bak;
-	fi
+	if ls pure-ftpd.pem-*.bak 1> /dev/null 2>&1; then rm pure-ftpd.pem-*.bak; fi
+	if [ -f "pure-ftpd.pem" ]; then mv pure-ftpd.pem pure-ftpd.pem-$(date +"%y%m%d%H%M%S").bak; fi
 	
 	# Create symlink from ISPConfig, chmod, then restart it
-	ln -s ispcssl/ispserver.pem pure-ftpd.pem
+	ln -sf $ispcssl/ispserver.pem pure-ftpd.pem
 	chmod 600 pure-ftpd.pem
 	service pure-ftpd-mysql restart
 	
 	# Backup existing mysql ssl file(s)
 	cd /etc/mysql
+	if ls server-*.pem-*.bak 1> /dev/null 2>&1; then rm server-*.pem-*.bak; fi
 	if [ -f "server-cert.pem" ]; then mv server-cert.pem server-cert.pem-$(date +"%y%m%d%H%M%S").bak; fi
 	if [ -f "server-key.pem" ]; then mv server-key.pem server-key.pem-$(date +"%y%m%d%H%M%S").bak; fi
 	
@@ -81,8 +84,7 @@ else
 	# Install incron, allow root user
 	apt-get install -yqq incron
 	iallow=/etc/incron.allow
-	if grep -q root "$iallow"; then
-		#
+	if grep -q root "$iallow"; then;
 	else
 		echo "root" >> $iallow
 	fi
