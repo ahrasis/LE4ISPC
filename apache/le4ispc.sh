@@ -82,8 +82,8 @@ else
 		cd $monit
 		sed -i '/PEMFILE/d' $monitrc
 		sed -i 's/SSL ENABLE/SSL ENABLE\n    PEMFILE \/etc\/ssl\/private\/pure-ftpd.pem/g' $monitrc
+		service monit restart
 	fi
-	service monit restart
 	
 	# Download auto updater script for LE ispserver.pem & others
 	cd /etc/init.d/
