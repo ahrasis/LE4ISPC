@@ -78,8 +78,8 @@ else
 	# Securing monit
 	monit=/etc/monit
 	monitrc=$monit/monitrc
-	cat $monitrc
 	if [ -d "$monit" ] && [ -f "$monitrc" ] ; then
+		cd $monit
 		sed -i '/PEMFILE/d' $monitrc
 		sed -i 's/SSL ENABLE/SSL ENABLE\n    PEMFILE \/etc\/ssl\/private\/pure-ftpd.pem/g' $monitrc
 	fi
