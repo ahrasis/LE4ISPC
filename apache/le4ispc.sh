@@ -116,7 +116,7 @@ if [ -f "$ispcssl/ispserver.crt" ] && [ -f "$ispcssl/ispserver.key" ] && [ -d "$
 	service apache2 restart
 	
 else
-	if [ ! -f "$ispcssl/ispserver.crt" ] || [ ! -f "$ispcssl/ispserver.key" ] then
+	if [ ! -f "$ispcssl/ispserver.crt" ] || [ ! -f "$ispcssl/ispserver.key" ]; then
 		echo "You did not enable SSL for ISPConfig server control panel. Please enable it before trying."
 	fi
 	if [ ! -d "$lelive" ]; then
