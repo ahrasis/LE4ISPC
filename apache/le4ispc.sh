@@ -101,16 +101,8 @@ if [ -f "$ispcssl/ispserver.crt" ] && [ -f "$ispcssl/ispserver.key" ] && [ -d "$
 	iroot=/var/spool/incron
 	cd $iroot
 	ibash="/etc/letsencrypt/archive/$(hostname -f)/ IN_CREATE,IN_MODIFY /bin/bash /etc/init.d/le_ispc_pem.sh"
-	if [ -f "root" ]; then
-		if grep -q le_ispc_pem.sh "root"; then
-			sed -i '/le_ispc_pem.sh/d' root
-			echo "$ibash" >> root
-		else
-			echo $ibash >> root
-		fi
-	else
-		echo $ibash >> root
-	fi
+	if [ -f "root" ] && grep -q le_ispc_pem.sh "root"; then sed -i '/le_ispc_pem.sh/d' root; fi
+	echo $ibash >> root
 	chmod 600 root
 	# Restart your webserver again
 	service apache2 restart
