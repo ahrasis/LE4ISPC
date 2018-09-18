@@ -9,6 +9,7 @@
 # Description:  Update ispserver.pem automatically after ISPC LE SSL certs are renewed.
 ### END INIT INFO
 cd /usr/local/ispconfig/interface/ssl/
+if ls ispserver.*.bak 1> /dev/null 2>&1; then rm ispserver.*.bak; fi
 mv ispserver.pem ispserver.pem-$(date +"%y%m%d%H%M%S").bak
 cat ispserver.{key,crt} > ispserver.pem
 chmod 600 ispserver.pem
