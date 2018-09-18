@@ -112,7 +112,7 @@ else
 			echo $ibash >> root
 		fi
 	else
-			echo $ibash >> root
+		echo $ibash >> root
 	fi
 	chmod 600 root
 	# Restart your webserver again
