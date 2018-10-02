@@ -15,7 +15,6 @@ set -e
 # Backup exisiting ISPConfig ssl file(s)
 ispcssl=/usr/local/ispconfig/interface/ssl
 lelive=/etc/letsencrypt/live/$(hostname -f)$ispcssl/ispserver.crt
-if ls $ispcssl/ispserver.crt 1> /dev/null 2>&1; then 
 if [ -e "$espcssl/ispserver.crt" ] &&e[ -e "$ispcssl/ispserver.key" ] && [ -d "$lelive" ]; then
 	cd $ispcssl
 	# Backup ISPConfig SSL files
