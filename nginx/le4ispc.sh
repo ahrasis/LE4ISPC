@@ -23,16 +23,16 @@ if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 	ispckey=$ispcssl/ispserver.key
 	ispcpem=$ispcssl/ispserver.pem
 	if ls $ispcbak 1> /dev/null 2>&1; then rm $ispcbak; fi
-	if -e "$ispccrt"; then mv $ispccrt $ispccrt-$(date +"%y%m%d%H%M%S").bak; fi
-	if -e "$ispckey"; then mv $ispckey $ispckey-$(date +"%y%m%d%H%M%S").bak; fi
-	if -e "$ispcpem"; then mv $ispcpem $ispcpem-$(date +"%y%m%d%H%M%S").bak; fi
+	if [ -e "$ispccrt" ]; then mv $ispccrt $ispccrt-$(date +"%y%m%d%H%M%S").bak; fi
+	if [ -e "$ispckey" ]; then mv $ispckey $ispckey-$(date +"%y%m%d%H%M%S").bak; fi
+	if [ -e "$ispcpem" ]; then mv $ispcpem $ispcpem-$(date +"%y%m%d%H%M%S").bak; fi
 
 	# Create symlink to LE fullchain and key for ISPConfig
 	ln -s $lelive/fullchain.pem $ispccrt
 	ln -s $lelive/privkey.pem $ispckey
 
 	# Build ispserver.pem file, chmod, then restart it
-	cat $ispckey,$ispccrt > $ispcpem
+	cat $ispckey $ispccrt > $ispcpem
 	chmod 600 $ispcpem
 	service nginx restart
 
@@ -41,8 +41,8 @@ if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 		postfix=/etc/postfix
 		cd $postfix
 		if ls smtpd.*.bak 1> /dev/null 2>&1; then rm smtpd.*.bak; fi
-		if -e "smtpd.cert"; then mv smtpd.cert smtpd.cert-$(date +"%y%m%d%H%M%S").bak; fi
-		if -e "smtpd.key"; then mv smtpd.key smtpd.key-$(date +"%y%m%d%H%M%S").bak; fi
+		if [ -e "smtpd.cert" ]; then mv smtpd.cert smtpd.cert-$(date +"%y%m%d%H%M%S").bak; fi
+		if [ -e "smtpd.key" ]; then mv smtpd.key smtpd.key-$(date +"%y%m%d%H%M%S").bak; fi
 
 		# Create symlink from ISPConfig
 		ln -s $ispccrt smtpd.cert
@@ -60,8 +60,8 @@ if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 		mkey=/etc/mysql/server-key.pem
 		mcnf=/etc/mysql/my.cnf
 		if ls $mbak 1> /dev/null 2>&1; then rm $mbak; fi
-		if -e "$mcrt"; then mv $mcrt $mcrt-$(date +"%y%m%d%H%M%S").bak; fi
-		if -e "$mkey"; then mv $mkey $mkey-$(date +"%y%m%d%H%M%S").bak; fi
+		if [ -e "$mcrt" ]; then mv $mcrt $mcrt-$(date +"%y%m%d%H%M%S").bak; fi
+		if [ -e "$mkey" ]; then mv $mkey $mkey-$(date +"%y%m%d%H%M%S").bak; fi
 	
 		# Copy from ISPConfig, add settings in /etc/mysql/my.cnf and restart mysql
 		scp $ispccrt $mcrt
@@ -76,7 +76,7 @@ if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 	if [ $(dpkg-query -W -f='${Status}' pure-ftpd-mysql 2>/dev/null | grep -c "ok installed") -eq 1 ] || [ $(dpkg-query -W -f='${Status}' monit 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
 		ftpdpem=/etc/ssl/private/pure-ftpd.pem
 		if ls $ftpdpem-*.bak 1> /dev/null 2>&1; then rm $ftpdpem-*.bak; fi
-		if -e "$ftpdpem"; then mv $ftpdpem $ftpdpem-$(date +"%y%m%d%H%M%S").bak; fi
+		if [ -e "$ftpdpem" ]; then mv $ftpdpem $ftpdpem-$(date +"%y%m%d%H%M%S").bak; fi
 		
 		# Create symlink from ISPConfig, chmod, then restart it
 		ln -sf $ispcpem $ftpdpem
@@ -90,9 +90,9 @@ if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 		# Securing monit using pure-ftpd.pem
 		if [ $(dpkg-query -W -f='${Status}' monit 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
 			monitrc=/etc/monit/monitrc
-			if grep -q "$ftpdpem" $monitrc; then
+			if ! grep -q "$ftpdpem" $monitrc; then
 				sed -i '/PEMFILE/d' $monitrc
-				sed -i "s/SSL ENABLE/SSL ENABLE\n\tPEMFILE $ftpdpem/g" $monitrc
+				sed -i "s@SSL ENABLE@SSL ENABLE\n\tPEMFILE $ftpdpem@" $monitrc
 			fi
 			service monit restart
 		fi
@@ -101,7 +101,7 @@ if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 	# Download auto updater script for LE ispserver.pem & others
 	leispc=/etc/init.d/le_ispc_pem.sh
 	if ls $leispc-*.bak 1> /dev/null 2>&1; then rm $leispc-*.bak; fi
-	if -e "$leispc" ]; then mv $leispc $leispc-$(date +"%y%m%d%H%M%S").bak; fi
+	if [ -e "$leispc" ]; then mv $leispc $leispc-$(date +"%y%m%d%H%M%S").bak; fi
 	wget -O $leispc https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le_ispc_pem.sh --no-check-certificate
 	chmod +x $leispc
 	
