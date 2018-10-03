@@ -15,7 +15,7 @@ set -e
 # Check if ISPConfig ssl is on and its LE SSL path exists
 lelive=/etc/letsencrypt/live/$(hostname -f)
 ispv=/etc/apache2/sites-available/ispconfig.vhost
-if [ grep -q "ssl on" $ispv ] && [ -d "$lelive" ]; then
+if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 	# Delete old then backup existing ispserver ssl files
 	ispcssl=/usr/local/ispconfig/interface/ssl
 	ispcbak=$ispcssl/ispserver.*.bak
