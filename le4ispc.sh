@@ -40,11 +40,12 @@ if [ -d "$lelive" ]; then
 	fi
 	
 	# Delete old then backup existing ispserver ssl files
-	ispcssl=/usr/local/ispconfig/interface/ssl
-	ispcbak=$ispcssl/ispserver.*.bak
-	ispccrt=$ispcssl/ispserver.crt
-	ispckey=$ispcssl/ispserver.key
-	ispcpem=$ispcssl/ispserver.pem
+	cd /usr/local/ispconfig/interface/ssl
+	ispcbak=ispserver.*.bak
+	ispccrt=ispserver.crt
+	ispckey=ispserver.key
+	ispcpem=ispserver.pem
+	
 	if ls $ispcbak 1> /dev/null 2>&1; then rm $ispcbak; fi
 	if [ -e "$ispccrt" ]; then mv $ispccrt $ispccrt-$(date +"%y%m%d%H%M%S").bak; fi
 	if [ -e "$ispckey" ]; then mv $ispckey $ispckey-$(date +"%y%m%d%H%M%S").bak; fi
@@ -129,7 +130,7 @@ if [ -d "$lelive" ]; then
 	leispc=/etc/init.d/le_ispc_pem.sh
 	if ls $leispc-*.bak 1> /dev/null 2>&1; then rm $leispc-*.bak; fi
 	if [ -e "$leispc" ]; then mv $leispc $leispc-$(date +"%y%m%d%H%M%S").bak; fi
-	wget -O $leispc https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le_ispc_pem.sh --no-check-certificate
+	wget -O $leispc https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/le4ispc_pem.sh --no-check-certificate
 	chmod +x $leispc
 	
 	# Install incron, allow root user
@@ -141,7 +142,7 @@ if [ -d "$lelive" ]; then
 	
 	# Manually create icrontab table for root
 	iroot=/var/spool/incron/root
-	ibash="/etc/letsencrypt/archive/$(hostname -f)/ IN_CREATE, IN_MODIFY /bin/bash /etc/init.d/le_ispc_pem.sh"
+	ibash="/etc/letsencrypt/archive/$(hostname -f)/ IN_CREATE, IN_MODIFY /bin/bash /etc/init.d/le4ispc_pem.sh"
 	if [ -e "$iroot" ] && grep -q "le_ispc_pem.sh" $iroot; then sed -i '/le_ispc_pem.sh/d' $iroot; fi
 	echo $ibash >> $iroot
 	chmod 600 $iroot
