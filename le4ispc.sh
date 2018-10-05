@@ -25,7 +25,7 @@ else
 		websvr=apache2
 	fi
 	if [ ! -d "$lelive" ]; then 
-		certbot certonly --authenticator standalone -d $(hostname -f) --pre-hook 'service $websvr stop' --post-hook 'service $websvr start'
+		certbot certonly --authenticator standalone -d $(hostname -f) --pre-hook "service $websvr stop" --post-hook "service $websvr start"
 	fi
 fi
 
