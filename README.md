@@ -30,7 +30,7 @@ echo "root" >> /etc/incron.allow
 cd /etc/ssl
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh --no-check-certificate
 chmod +x le4ispc.sh
-echo "/etc/letsencrypt/archive/$(hostname -f)/ IN_CREATE /bin/bash /usr/local/ispconfig/server/scripts/le4ispc.sh" >> /var/spool/incron/root
+echo "/etc/letsencrypt/live/$(hostname -f)/ IN_CREATE /bin/bash /etc/ssl/le4ispc.sh" >> /var/spool/incron/root
 ```
 The LE4ISPC script will be waiting for the certs to be created and will run after the certs are issued. ;D
 
