@@ -12,9 +12,14 @@
 # Enable set -e to cause script to exit on error
 set -e
 
-# Check if ISPConfig ssl is on and its LE SSL path exists
-lelive=/etc/letsencrypt/live/$(hostname -f)
+# Activate SSL for ISPConfig if it is not yet enabled.
 ispv=/etc/apache2/sites-available/ispconfig.vhost
+if ! grep -q "ssl on" $ispv; then
+        sed -i "s/ssl off/ssl on/g" $ispv
+        sed -i "s/#ssl_/ssl_/g" $ispv
+fi
+# Then proceed if 'hostname -f' LE SSL path exists
+lelive=/etc/letsencrypt/live/$(hostname -f)
 if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 	# Delete old then backup existing ispserver ssl files
 	ispcssl=/usr/local/ispconfig/interface/ssl
@@ -123,8 +128,6 @@ if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 else
 	if [ ! -d "$lelive" ]; then
 		echo "You did not have Lets Encrypt SSL certs for your server FQDN. Try again when you have them."
-	else
-		echo "You did not enable SSL for ISPConfig server control panel. Please enable it before trying."
 	fi
 fi
 # End of script
