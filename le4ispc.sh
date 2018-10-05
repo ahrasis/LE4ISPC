@@ -129,14 +129,14 @@ if [ -d "$lelive" ]; then
 	fi
 	
 	# Download auto updater script for LE ispserver.pem & others
-	leispc=/etc/init.d/le_ispc_pem.sh
+	leispc=/etc/init.d/le4ispc_pem.sh
 	if ls $leispc-*.bak 1> /dev/null 2>&1; then rm $leispc-*.bak; fi
 	if [ -e "$leispc" ]; then mv $leispc $leispc-$(date +"%y%m%d%H%M%S").bak; fi
 	wget -O $leispc https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/le4ispc_pem.sh --no-check-certificate
 	chmod +x $leispc
 	
 	# Install incron, allow root user
-	if [ $(dpkg-query -W -f='${Status}' monit 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
+	if [ $(dpkg-query -W -f='${Status}' incron 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
 		apt-get install -yqq incron
 	fi
 	iallow=/etc/incron.allow
