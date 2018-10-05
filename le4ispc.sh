@@ -13,7 +13,7 @@
 set -e
 
 # Determine whether this is a webserver (nginx or apache2) or not
-# Then request 'hostname -f' LE SSL certs if path is missing.
+# Then request 'hostname -f' LE SSL certs if its path is missing.
 lelive=/etc/letsencrypt/live/$(hostname -f)
 if [ $(dpkg-query -W -f='${Status}' nginx 2>/dev/null | grep -c "ok installed") -eq 0 ] && [ $(dpkg-query -W -f='${Status}' apache2 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
 	websvr=0
