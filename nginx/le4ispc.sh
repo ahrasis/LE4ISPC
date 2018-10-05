@@ -14,13 +14,26 @@ set -e
 
 # Activate SSL for ISPConfig if it is not yet enabled.
 ispv=/etc/nginx/sites-available/ispconfig.vhost
-if ! grep -q "ssl on" $ispv; then
+if [ -e "$ispv" ] && ! grep -q "ssl on" $ispv; then
         sed -i "s/ssl off/ssl on/g" $ispv
         sed -i "s/#ssl_/ssl_/g" $ispv
 fi
-# Then proceed if 'hostname -f' LE SSL path exists
+# Create 'hostname -f' LE SSL certs if none is found.
 lelive=/etc/letsencrypt/live/$(hostname -f)
-if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
+if [ ! -d "$lelive" ]; then
+	if [ $(dpkg-query -W -f='${Status}' nginx 2>/dev/null | grep -c "ok installed") -eq 1 ] || [ $(dpkg-query -W -f='${Status}' apache2 2>/dev/null | grep -c "ok installed") -eq 1 ]; then 
+		if [ $(dpkg-query -W -f='${Status}' nginx 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
+			certbot certonly --authenticator standalone -d $(hostname -f) --pre-hook 'service nginx stop' --post-hook 'service nginx start'
+		fi
+		if [ $(dpkg-query -W -f='${Status}' apache2 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
+			certbot certonly --authenticator standalone -d $(hostname -f) --pre-hook 'service apache2 stop' --post-hook 'service apache2 start'
+		fi
+	else
+		certbot certonly --authenticator standalone -d $(hostname -f)
+	fi
+fi
+# Proceed if 'hostname -f' LE SSL certs path exists
+if [ -d "$lelive" ]; then
 	# Delete old then backup existing ispserver ssl files
 	ispcssl=/usr/local/ispconfig/interface/ssl
 	ispcbak=$ispcssl/ispserver.*.bak
@@ -111,7 +124,9 @@ if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 	chmod +x $leispc
 	
 	# Install incron, allow root user
-	apt-get install -yqq incron
+	if [ $(dpkg-query -W -f='${Status}' monit 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
+		apt-get install -yqq incron
+	fi
 	iallow=/etc/incron.allow
 	if ! grep -q "root" $iallow; then echo "root" >> $iallow; fi
 	
@@ -121,13 +136,9 @@ if grep -q "ssl on" $ispv && [ -d "$lelive" ]; then
 	if [ -e "$iroot" ] && grep -q "le_ispc_pem.sh" $iroot; then sed -i '/le_ispc_pem.sh/d' $iroot; fi
 	echo $ibash >> $iroot
 	chmod 600 $iroot
+	service incron restart
 	
 	# Restart your webserver again
 	service nginx restart
-
-else
-	if [ ! -d "$lelive" ]; then
-		echo "You did not have Lets Encrypt SSL certs for your server FQDN. Try again when you have them."
-	fi
 fi
 # End of script
