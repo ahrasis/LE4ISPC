@@ -55,9 +55,11 @@ if [ -d "$lelive" ]; then
 	ln -s $lelive/fullchain.pem $ispccrt
 	ln -s $lelive/privkey.pem $ispckey
 
-	# Build ispserver.pem file, chmod, then restart it
+	# Build ispserver.pem file and chmod it
 	cat $ispckey $ispccrt > $ispcpem
 	chmod 600 $ispcpem
+
+	# Restart webserver if it is a webserver
 	if [ $(dpkg-query -W -f='${Status}' $websvr 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
 		service $websvr restart
 	fi
@@ -148,7 +150,7 @@ if [ -d "$lelive" ]; then
 	chmod 600 $iroot
 	service incron restart
 	
-	# Restart your webserver again
+	# Restart webserver if it is a webserver
 	if [ $(dpkg-query -W -f='${Status}' $websvr 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
 		service $websvr restart
 	fi
