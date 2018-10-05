@@ -35,8 +35,13 @@ if [ -d "$lelive" ]; then
 	# Activate SSL for ISPConfig if it is not yet enabled.
 	ispv=/etc/$websvr/sites-available/ispconfig.vhost
 	if [ -e "$ispv" ] && ! grep -q "ssl on" $ispv; then
-		sed -i "s/ssl off/ssl on/g" $ispv
-		sed -i "s/#ssl_/ssl_/g" $ispv
+		if [[ $websvr = "nginx" ]]; then
+			sed -i "s/ssl off/ssl on/g" $ispv
+			sed -i "s/#ssl_/ssl_/g" $ispv
+		else
+			sed -i "s/#SSL/SSL/g" $ispv
+			sed -i "s/SSLCACertificateFile/#SSLCACertificateFile/g" $ispv
+		fi
 	fi
 	
 	# Delete old then backup existing ispserver ssl files
