@@ -126,7 +126,7 @@ if [ -d "$lelive" ]; then
 	chmod +x $leispc
 	
 	# Install incron, allow root user
-	if [ $(dpkg-query -W -f='${Status}' monit 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
+	if [ $(dpkg-query -W -f='${Status}' incron 2>/dev/null | grep -c "ok installed") -eq 0 ]; then
 		apt-get install -yqq incron
 	fi
 	iallow=/etc/incron.allow
