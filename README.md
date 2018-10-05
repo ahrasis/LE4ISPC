@@ -10,10 +10,8 @@ chmod +x le4ispc.sh
 ./le4ispc.sh
 ```
 
-# HOW-TO FOR NGINX
-https://github.com/ahrasis/LE4ISPC/tree/master/apache
-
-# HOW-TO FOR APACHE2
+# OLDER HOW-TO'S
+https://github.com/ahrasis/LE4ISPC/tree/master/nginx
 https://github.com/ahrasis/LE4ISPC/tree/master/apache
 
 # LICENSE
