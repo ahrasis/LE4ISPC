@@ -16,11 +16,12 @@ certbot certonly --authenticator standalone -d server.domain.tld --pre-hook 'ser
 # For other server, try:
 certbot certonly --authenticator standalone -d server.domain.tld
 ```
+I will integrate this once the above command is successfully tested.
 
-# WEBROOT LET's ENCRYPT
+# WEBROOT LET'S ENCRYPT
 Other then the above standalone way, for multi server setup under LAN (not WAN), you should read [the said post #203](https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/page-11#post-368888) and modify le_ispc_pem.sh in the main server adding the scp for LE SSL certs and the relevant le4ispc.sh accordingly before running it in other servers (i.e. server(s) other than the master server).
 
-# WEBROOT LET's ENCRYPT CHANGES EXAMPLES
+# WEBROOT LET'S ENCRYPT CHANGES EXAMPLES
 1. For multi server setup, do read [post (#203)](https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/page-11#post-368888).
 2. Basically, in the main server, add scp -r /etc/letsencrypt/ root@otherserverip:/etc/ at the end of le_ispc_pem.sh. This is to automate future scp of updated LE SSL certs to the other server as specied.
 3. Copy, modify and add more line, if you need to scp to more than one server.
@@ -29,7 +30,7 @@ Other then the above standalone way, for multi server setup under LAN (not WAN),
 6. Securing mysql server is now covered by the script. In case you need explanation or to secure your mysql server manually do read [post #247](https://www.howtoforge.com/community/threads/securing-ispconfig-3-control-panel-port-8080-with-lets-encrypt-free-ssl.75554/page-13#post-376720)
 7. Simply scp ispconfig ssl files (crt and key) to your /etc/mysql folder and then enable ssl for mysql by modifying / adding their settings in /etc/mysql/my.cnf file.
 
-# DO AND DO NOT
+# WEBROOT LET'S ENCRYPT DO AND DO NOT
 Please DO modify le_ispc_pem.sh in /etc/init.d/ folder to enable support for multi server setup but DO NOT delete it or your ispconfig.pem (which is required / needed by some other services via symlinks) will fail.
 
 # HOW-TO FOR NGINX
@@ -50,7 +51,7 @@ chmod +x le4ispc.sh
 ./le4ispc.sh
 ```
 
-# OTHER METHOD
+# HOW-TO OTHER METHOD
 In reverse, before you obtained the certs, you can also run the commands below (to install incron, allow root to run incron, download the le4ispc.sh script from this github, make the script executable and create an incron job to run the script upon your server Let's Encrypt archive folder is created):
 ```
 apt install -y incron
