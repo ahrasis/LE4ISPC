@@ -92,7 +92,9 @@ if [ -d "$lelive" ]; then
 
 	# If installed, delete old then backup existing pure-ftpd.pem file
 	if [ $(dpkg-query -W -f='${Status}' pure-ftpd-mysql 2>/dev/null | grep -c "ok installed") -eq 1 ] || [ $(dpkg-query -W -f='${Status}' monit 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
-		ftpdpem=/etc/ssl/private/pure-ftpd.pem
+		pte=/etc/ssl/private
+		ftpdpem=$pte/pure-ftpd.pem
+		if [ ! -d "$pte" ]; then mkdir $pte; fi
 		if ls $ftpdpem-*.bak 1> /dev/null 2>&1; then rm $ftpdpem-*.bak; fi
 		if [ -e "$ftpdpem" ]; then mv $ftpdpem $ftpdpem-$(date +"%y%m%d%H%M%S").bak; fi
 		
