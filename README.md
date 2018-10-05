@@ -25,9 +25,7 @@ chmod +x le4ispc.sh
 # HOW-TO OTHER METHOD
 In reverse, before you obtained the certs, you can also run the commands below (to install incron, allow root to run incron, download the le4ispc.sh script from this github, make the script executable and create an incron job to run the script upon your server Let's Encrypt archive folder is created):
 ```
-apt install -y incron
-echo "root" >> /etc/incron.allow
-cd /etc/ssl
+apt-get install -yqq incron && echo "root" >> /etc/incron.allow && cd /etc/ssl
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/nginx/le4ispc.sh --no-check-certificate
 chmod +x le4ispc.sh
 echo "/etc/letsencrypt/live/$(hostname -f)/ IN_CREATE /bin/bash /etc/ssl/le4ispc.sh" >> /var/spool/incron/root
@@ -38,13 +36,13 @@ The LE4ISPC script will be waiting for the certs to be created and will run afte
 I haven't tested this but if you do not have the above certs yet, using latest certbot client, you can manually run one of the following standalone command to issue them:
 ``` 
 # For Nginx web server, try:
-certbot certonly --authenticator standalone -d server.domain.tld --pre-hook 'service stop nginx' --post-hook 'service start nginx'
+certbot certonly --authenticator standalone -d $(hostname -f) --pre-hook 'service nginx stop' --post-hook 'service nginx start'
 
 # For Apache2 web server, try:
-certbot certonly --authenticator standalone -d server.domain.tld --pre-hook 'service stop apache2' --post-hook 'service start apache2'
+certbot certonly --authenticator standalone -d $(hostname -f) --pre-hook 'service apache2 stop' --post-hook 'service apache2 start'
 
 # For other server, try:
-certbot certonly --authenticator standalone -d server.domain.tld
+certbot certonly --authenticator standalone -d $(hostname -f)
 ```
 I will integrate this once the above command is successfully tested.
 
