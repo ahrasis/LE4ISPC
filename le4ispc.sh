@@ -83,7 +83,9 @@ if [ -d "$lelive" ]; then
 		
 		# Restart postfix and dovecot
 		service postfix restart
-		service dovecot restart
+		if [ $(dpkg-query -W -f='${Status}' dovecot 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
+			service dovecot restart
+		fi
 	fi
 	
 	# If installed, delete old then backup existing mysql ssl files
