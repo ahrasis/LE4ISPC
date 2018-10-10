@@ -47,9 +47,9 @@ if [ -d "$lelive" ]; then
 	# Delete old then backup existing ispserver ssl files
 	ispcssl=/usr/local/ispconfig/interface/ssl
 	cd $ispcssl
-	ispcbak=ispserver.*.bak
-	ispccrt=ispserver.crt
-	ispckey=ispserver.key
+	ispcbak=$ispcssl/ispserver.*.bak
+	ispccrt=$ispcssl/ispserver.crt
+	ispckey=$ispcssl/ispserver.key
 	ispcpem=$ispcssl/ispserver.pem
 	
 	if ls $ispcbak 1> /dev/null 2>&1; then rm $ispcbak; fi
