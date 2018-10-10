@@ -45,12 +45,10 @@ if [ -d "$lelive" ]; then
 	fi
 	
 	# Delete old then backup existing ispserver ssl files
-	ispcssl=/usr/local/ispconfig/interface/ssl
-	cd $ispcssl
-	ispcbak=$ispcssl/ispserver.*.bak
-	ispccrt=$ispcssl/ispserver.crt
-	ispckey=$ispcssl/ispserver.key
-	ispcpem=$ispcssl/ispserver.pem
+	ispcbak=/usr/local/ispconfig/interface/ssl/ispserver.*.bak
+	ispccrt=/usr/local/ispconfig/interface/ssl/ispserver.crt
+	ispckey=/usr/local/ispconfig/interface/ssl/ispserver.key
+	ispcpem=/usr/local/ispconfig/interface/ssl/ispserver.pem
 	
 	if ls $ispcbak 1> /dev/null 2>&1; then rm $ispcbak; fi
 	if [ -e "$ispccrt" ]; then mv $ispccrt $ispccrt-$(date +"%y%m%d%H%M%S").bak; fi
@@ -72,15 +70,16 @@ if [ -d "$lelive" ]; then
 	
 	# If installed, delete old then backup existing postfix ssl files
 	if [ $(dpkg-query -W -f='${Status}' postfix 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
-		postfix=/etc/postfix
-		cd $postfix
-		if ls smtpd.*.bak 1> /dev/null 2>&1; then rm smtpd.*.bak; fi
-		if [ -e "smtpd.cert" ]; then mv smtpd.cert smtpd.cert-$(date +"%y%m%d%H%M%S").bak; fi
-		if [ -e "smtpd.key" ]; then mv smtpd.key smtpd.key-$(date +"%y%m%d%H%M%S").bak; fi
+		pfbak=/etc/postfix/smtpd.*.bak
+		pfcrt=/etc/postfix/smtpd.cert
+		pfkey=/etc/postfix/smtpd.key
+		if ls $pfbak 1> /dev/null 2>&1; then rm $pfbak; fi
+		if [ -e "$pfcrt" ]; then mv $pfcrt $pfcrt-$(date +"%y%m%d%H%M%S").bak; fi
+		if [ -e "$pfkey" ]; then mv $pfkey $pfkey-$(date +"%y%m%d%H%M%S").bak; fi
 
 		# Create symlink from ISPConfig
-		ln -s $ispccrt smtpd.cert
-		ln -s $ispckey smtpd.key
+		ln -s $ispccrt $pfcrt
+		ln -s $ispckey $pfkey
 		
 		# Restart postfix and dovecot
 		service postfix restart
