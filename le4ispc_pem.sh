@@ -50,6 +50,8 @@ if [ -d "$lelive" ]; then
 	fi
 	if [ $(dpkg-query -W -f='${Status}' postfix 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
 		service postfix restart
+	fi
+	if [ $(dpkg-query -W -f='${Status}' dovecot 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
 		service dovecot restart
 	fi
 	if [ $(dpkg-query -W -f='${Status}' $websvr 2>/dev/null | grep -c "ok installed") -eq 1 ]; then
