@@ -151,7 +151,7 @@ if [ -d "$lelive" ]; then
 	
 	# Manually create icrontab table for root
 	iroot=/var/spool/incron/root
-	ibash="/etc/letsencrypt/archive/$(hostname -f)/ IN_CREATE, IN_MODIFY /bin/bash /etc/init.d/le4ispc_pem.sh"
+	ibash="/etc/letsencrypt/archive/$(hostname -f)/ IN_CREATE,IN_MODIFY /bin/bash /etc/init.d/le4ispc_pem.sh"
 	if [ -e "$iroot" ] && grep -q "le_ispc_pem.sh" $iroot; then sed -i '/le_ispc_pem.sh/d' $iroot; fi
 	echo $ibash >> $iroot
 	chmod 600 $iroot
