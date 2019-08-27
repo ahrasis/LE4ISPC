@@ -11,9 +11,9 @@ chmod +x le4ispc.sh
 ```
 
 # OLDER HOW-TO'S
-https://github.com/ahrasis/LE4ISPC/tree/master/nginx
+https://github.com/ahrasis/LE4ISPC/tree/master/old/nginx
 
-https://github.com/ahrasis/LE4ISPC/tree/master/apache
+https://github.com/ahrasis/LE4ISPC/tree/master/old/apache
 
 # LICENSE
 BSD3
