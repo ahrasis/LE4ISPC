@@ -5,10 +5,11 @@ Let's Encrypt With Auto Updater is for ISPConfig 3 (Single or Multi Server Setup
 In your terminal, in root mode, simply run this after you have installed any of your ISPConfig server build:
 ```
 cd /etc/ssl
-wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/le4ispc.sh --no-check-certificate
+wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/le4ispc.sh
 chmod +x le4ispc.sh
 ./le4ispc.sh
 ```
+Note: You can add "--no-check-certificate" at the end of wget line if it is an issue to you.
 
 # OLDER HOW-TO'S
 https://github.com/ahrasis/LE4ISPC/tree/master/old/nginx
