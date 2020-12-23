@@ -7,7 +7,7 @@ Obsolete since the release of ISPConfig 3.2.
 # HOW TO REMOVE LE4ISPC
 In your terminal, in root mode, simply run this after you have installed any of your ISPConfig server build:
 ```
-cd /etc/ssl
+cd /tmp
 wget https://raw.githubusercontent.com/ahrasis/LE4ISPC/master/le4ispc-remover.sh
 chmod +x le4ispc-remover.sh
 ./le4ispc-remover.sh
