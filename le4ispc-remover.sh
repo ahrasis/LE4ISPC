@@ -12,6 +12,8 @@
 # Enable set -e to cause script to exit on error
 set -e
 
+le4ispc=/etc/ssl/le4ispc.sh
+if [ -e "$le4ispc" ]; then rm $le4ispc; fi
 le4ispc_pem=/etc/init.d/le4ispc_pem.sh
 if [ -e "$le4ispc_pem" ]; then rm $le4ispc_pem; fi
 
