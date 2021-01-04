@@ -24,3 +24,4 @@ chmod 600 $iroot
 service incron restart
 
 rm -rf /etc/letsencrypt/*/$(hostname -f)*
+echo 'Please download the latest ISPConfig 3.2.* and run php -q update.php from the install folder and create SSL during the update process.'  
