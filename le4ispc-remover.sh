@@ -22,3 +22,5 @@ if [ -e "$iroot" ] && grep -q "le_ispc_pem.sh" $iroot; then sed -i '/le_ispc_pem
 if [ -e "$iroot" ] && grep -q "le_ispc_pem.sh" $iroot; then sed -i '/le4ispc_pem.sh/d' $iroot; fi
 chmod 600 $iroot
 service incron restart
+
+rm -rf /etc/letsencrypt/*/$(hostname -f)*
