@@ -17,11 +17,11 @@ if [ -e "$le4ispc" ]; then rm $le4ispc; fi
 le4ispc_pem=/etc/init.d/le4ispc_pem.sh
 if [ -e "$le4ispc_pem" ]; then rm $le4ispc_pem; fi
 le_ispc_pem=/etc/init.d/le_ispc_pem.sh
-if [ -e "$le_ispc_pem" ]; then rm $le4ispc_pem; fi
+if [ -e "$le_ispc_pem" ]; then rm $le_ispc_pem; fi
 
 iroot=/var/spool/incron/root
+if [ -e "$iroot" ] && grep -q "le4ispc_pem.sh" $iroot; then sed -i '/le4ispc_pem.sh/d' $iroot; fi
 if [ -e "$iroot" ] && grep -q "le_ispc_pem.sh" $iroot; then sed -i '/le_ispc_pem.sh/d' $iroot; fi
-if [ -e "$iroot" ] && grep -q "le_ispc_pem.sh" $iroot; then sed -i '/le4ispc_pem.sh/d' $iroot; fi
 chmod 600 $iroot
 service incron restart
 
