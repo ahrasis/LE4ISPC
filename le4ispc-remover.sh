@@ -26,4 +26,4 @@ chmod 600 $iroot
 service incron restart
 
 rm -rf /etc/letsencrypt/*/$(hostname -f)*
-echo 'Please update to the latest ISPConfig 3.2.* ispconfig_update.sh --force, backup, reconfigure services and create SSL during the update process.'  
+echo 'Please update to the latest ISPConfig 3.2.* using ispconfig_update.sh --force, backup, reconfigure services and create SSL during the update process.'  
