@@ -1,12 +1,12 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:  CREATE LE SSL FOR ISPC AND OTHER MAIN SERVICES
+# Provides:  REMOVE MAIN LEFTOVERS FROM LE4ISPC SCRIPTS OR TUTORIAL
 # Required-Start:  $local_fs $network
 # Required-Stop:  $local_fs
 # Default-Start:  2 3 4 5
 # Default-Stop:  0 1 6
-# Short-Description:  CREATE LE SSL FOR ISPC AND OTHER MAIN SERVICES
-# Description:  Create LE SSL for ISPC and other main services.
+# Short-Description:  REMOVE MAIN LEFTOVERS FROM LE4ISPC SCRIPT OR TUTORIAL
+# Description:  REMOVE MAIN LEFTOVERS FROM LE4ISPC SCRIPT OR TUTORIAL
 ### END INIT INFO
 
 # Enable set -e to cause script to exit on error
