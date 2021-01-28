@@ -5,8 +5,8 @@
 # Required-Stop:  $local_fs
 # Default-Start:  2 3 4 5
 # Default-Stop:  0 1 6
-# Short-Description:  REMOVE MAIN LEFTOVERS FROM LE4ISPC SCRIPT OR TUTORIAL
-# Description:  REMOVE MAIN LEFTOVERS FROM LE4ISPC SCRIPT OR TUTORIAL
+# Short-Description:  REMOVE MAIN LEFTOVERS FROM LE4ISPC SCRIPTS OR TUTORIAL
+# Description:  REMOVE MAIN LEFTOVERS FROM LE4ISPC SCRIPTS OR TUTORIAL
 ### END INIT INFO
 
 # Enable set -e to cause script to exit on error
